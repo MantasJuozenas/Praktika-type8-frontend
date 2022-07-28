@@ -1,0 +1,67 @@
+.header {
+  height: 50px;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  line-height: 30px;
+  padding: 0 10px;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.container {
+  width: 100%;
+  box-shadow: 0 0 4px lightgray;
+}
+
+.logo {
+  height: 30px;
+  //   padding-top: 10px;
+}
+
+.logoInfo {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.navLink {
+  text-decoration: none;
+  color: black;
+  font-size: 18px;
+}
+
+.search {
+  width: 80%;
+  padding: 5px;
+  border: 1px solid lightgray;
+  border-radius: 3px;
+}
+
+.searchDiv {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+}
+
+.mg5 {
+  margin: 0 5px;
+}
+
+.login {
+  padding: 6px 5px;
+  background-color: rgb(225, 236, 244);
+  border: 1px solid rgb(57, 115, 156);
+  color: rgb(57, 115, 156);
+  border-radius: 3px;
+  font-size: 13px;
+}
+
+.signup {
+  padding: 6px 5px;
+  background-color: rgb(9, 149, 254);
+  border: 1px solid rgb(57, 115, 156);
+  color: white;
+  border-radius: 3px;
+  font-size: 13px;
+  width: 90px;
+}
