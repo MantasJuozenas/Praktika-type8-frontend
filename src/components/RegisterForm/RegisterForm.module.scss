@@ -1,0 +1,146 @@
+.register {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  max-width: 1000px;
+  margin: 50px auto;
+  min-height: 600px;
+
+  .infoDiv {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding-left: 100px;
+
+    .regInfo {
+      font-size: 12px;
+      .forgot {
+        color: rgb(9, 149, 254);
+      }
+    }
+  }
+  .form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .inputs {
+      width: 290px;
+      border-radius: 5px;
+      padding: 20px;
+      box-shadow: 3px 3px 10px lightgray;
+      box-sizing: border-box;
+      background-color: white;
+
+      .signupInfo {
+        font-size: 12px;
+        .forgot {
+          color: rgb(9, 149, 254);
+        }
+      }
+
+      .inputContainer {
+        width: 100%;
+        margin: 10px 0;
+
+        label {
+          font-weight: 600;
+        }
+
+        input {
+          width: 98%;
+          padding: 5px 0;
+          margin: 5px 0;
+          display: block;
+        }
+
+        .errorMsg {
+          margin-top: 0;
+          color: tomato;
+          font-size: 12px;
+        }
+
+        .errorInput {
+          border: 1px solid tomato;
+          border-radius: 5px;
+          outline: none;
+          // background-color: rgb(255, 132, 111);
+        }
+
+        .passInfo {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          .forgot {
+            font-size: 12px;
+            color: rgb(9, 149, 254);
+          }
+        }
+      }
+    }
+
+    .img {
+      height: 50px;
+    }
+
+    .linkImg {
+      height: 13px;
+      padding: 0 3px;
+      margin-bottom: 2px;
+    }
+
+    .box {
+      width: 250px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      margin: 10px 0;
+    }
+
+    .google {
+      border: 1px solid lightgray;
+      background-color: #fff;
+      padding: 11px 20px;
+    }
+
+    .github {
+      border: 1px solid black;
+      padding: 8px 20px;
+      background-color: black;
+      color: white;
+    }
+    .github img {
+      height: 23px;
+    }
+
+    .facebook {
+      border: 1px solid rgb(56, 84, 153);
+      padding: 11px 20px;
+      background-color: rgb(56, 84, 153);
+      color: white;
+    }
+
+    .facebook .icon {
+      color: white;
+      height: 15px;
+      margin-right: 5px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px 0;
+      background-color: rgb(9, 149, 254);
+      border: none;
+      border-radius: 5px;
+      color: white;
+    }
+
+    .signup {
+      color: rgb(9, 149, 254);
+      text-decoration: none;
+    }
+  }
+}

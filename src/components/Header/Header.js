@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import logo from '../../assets/stack.png';
+import { AuthContext } from '../store/authContext';
 import styles from './Header.module.scss';
 
 function Header() {
+  const { isUserLoggedIn } = useContext(AuthContext);
+
   return (
     <div className={styles.container}>
       <header className={styles.header}>
@@ -15,12 +18,20 @@ function Header() {
         </div>
         <div className={styles.searchDiv}>
           <input className={`${styles.search} ${styles.mg5}`} type='text' placeholder='Search' />
-          <NavLink to={'/login'}>
-            <button className={`${styles.mg5} ${styles.login}`}>Login</button>
-          </NavLink>
-          <NavLink to={'/register'}>
-            <button className={`${styles.mg5} ${styles.signup}`}>Sign up</button>
-          </NavLink>
+          {!isUserLoggedIn ? (
+            <>
+              <NavLink to={'/login'}>
+                <button className={`${styles.mg5} ${styles.login}`}>Login</button>
+              </NavLink>
+              <NavLink to={'/register'}>
+                <button className={`${styles.mg5} ${styles.signup}`}>Sign up</button>
+              </NavLink>
+            </>
+          ) : (
+            <NavLink to={'/login'}>
+              <button className={`${styles.mg5} ${styles.login}`}>Logout</button>
+            </NavLink>
+          )}
         </div>
       </header>
     </div>
