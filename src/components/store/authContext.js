@@ -14,9 +14,10 @@ function AuthProvider(props) {
 
   const isUserLoggedIn = !!token;
 
-  function login(userToken) {
+  function login(userToken, userId) {
     setToken(userToken);
     localStorage.setItem('token-React', userToken);
+    localStorage.setItem('userId', userId);
   }
   function logout() {
     setToken(null);

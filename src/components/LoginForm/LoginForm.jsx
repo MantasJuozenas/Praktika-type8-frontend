@@ -22,7 +22,7 @@ function LoginForm() {
     initialValues: initValues,
     onSubmit: async (values) => {
       const newLogin = {
-        username: values.email,
+        email: values.email,
         password: values.password,
       };
       const resp = await fetch('http://localhost:3001/login', {
@@ -32,15 +32,13 @@ function LoginForm() {
         },
         body: JSON.stringify(newLogin),
       });
-      console.log(resp);
       const result = await resp.json();
       if (result.success === false) {
         setError(result.msg);
         return;
       }
-      login(result.token);
-      history.push('/register');
-      console.log(result);
+      login(result.token, result.paylod.userId);
+      history.push('/');
     },
     validationSchema: Yup.object({
       email: Yup.string().required('Email cannot be empty.'),

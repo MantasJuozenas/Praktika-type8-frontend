@@ -3,6 +3,7 @@ import './App.scss';
 import { Route, Switch } from 'react-router-dom';
 import LoginPage from './pages/LoginPage/LoginPage';
 import RegisterPage from './pages/RegisterPage/RegisterPage';
+import QuestionsPage from './pages/QuestionsPage/QuestionsPage';
 
 function App() {
   return (
@@ -14,6 +15,9 @@ function App() {
         </Route>
         <Route path='/register'>
           <RegisterPage />
+        </Route>
+        <Route exact path='/'>
+          <QuestionsPage />
         </Route>
         {/* <ProtectedRoute path={'/addpost'}>
           <AddPost />

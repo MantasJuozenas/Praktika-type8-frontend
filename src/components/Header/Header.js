@@ -5,19 +5,24 @@ import { AuthContext } from '../store/authContext';
 import styles from './Header.module.scss';
 
 function Header() {
-  const { isUserLoggedIn } = useContext(AuthContext);
+  const { isUserLoggedIn, logout } = useContext(AuthContext);
 
   return (
     <div className={styles.container}>
       <header className={styles.header}>
         <div className={styles.logoInfo}>
           <img className={styles.logo} src={logo} alt='LOGO' />
-          <NavLink to={'/home'} className={styles.navLink}>
+          <NavLink to={'/'} className={styles.navLink}>
             Questions
           </NavLink>
         </div>
         <div className={styles.searchDiv}>
-          <input className={`${styles.search} ${styles.mg5}`} type='text' placeholder='Search' />
+          <div className={styles.inputGroup}>
+            <label htmlFor='search' className={styles.id}>
+              <i className={`${styles.icon} fa fa-search`}></i>
+            </label>
+            <input className={`${styles.search} ${styles.mg5}`} name='search' type='text' placeholder='Search' />
+          </div>
           {!isUserLoggedIn ? (
             <>
               <NavLink to={'/login'}>
@@ -28,7 +33,7 @@ function Header() {
               </NavLink>
             </>
           ) : (
-            <NavLink to={'/login'}>
+            <NavLink to={'/'} onClick={logout}>
               <button className={`${styles.mg5} ${styles.login}`}>Logout</button>
             </NavLink>
           )}

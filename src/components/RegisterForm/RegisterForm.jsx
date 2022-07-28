@@ -4,7 +4,7 @@ import githubLogo from '../../assets/githublogo.png';
 import { useFormik } from 'formik';
 import { useState } from 'react';
 import * as Yup from 'yup';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 const initValues = {
   username: '',
@@ -22,9 +22,10 @@ function RegisterForm() {
     onSubmit: async (values) => {
       const newLogin = {
         email: values.email,
+        username: values.name,
         password: values.password,
       };
-      const resp = await fetch('https://autumn-delicate-wilderness.glitch.me/v1/auth/register', {
+      const resp = await fetch('http://localhost:3001/registration', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -32,10 +33,11 @@ function RegisterForm() {
         body: JSON.stringify(newLogin),
       });
       const result = await resp.json();
-      if (result.changes === 1) {
-        setRegister(true);
+      if (result.success === false) {
+        setError(result.msg);
+        return;
       }
-      setError(result.err);
+      setRegister(true);
     },
     validationSchema: Yup.object({
       email: Yup.string().required('Email cannot be empty').email('Email should be valid'),
