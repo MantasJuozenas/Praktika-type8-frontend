@@ -7,6 +7,7 @@ import style from './LoginForm.module.scss';
 import logo from '../../assets/stackLogin.png';
 import googleLogo from '../../assets/googleLogo.png';
 import githubLogo from '../../assets/githublogo.png';
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const initValues = {
   email: '',
@@ -25,7 +26,7 @@ function LoginForm() {
         email: values.email,
         password: values.password,
       };
-      const resp = await fetch('http://localhost:3001/login', {
+      const resp = await fetch(`${baseUrl}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

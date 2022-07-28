@@ -1,0 +1,15 @@
+.questionPage {
+  margin-top: 33px;
+  width: 100%;
+  min-height: 195vh;
+  background-color: #fff;
+  padding: 1px;
+
+  .container {
+    max-width: 1200px;
+    margin: 20px 0;
+    border-left: 1px solid lightgray;
+    display: grid;
+    grid-template-columns: 0.7fr 1.5fr;
+  }
+}

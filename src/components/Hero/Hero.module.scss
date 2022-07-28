@@ -1,0 +1,68 @@
+.hero {
+  margin-left: 300px;
+  padding: 10px;
+  border-bottom: 1px solid lightgray;
+  width: 140%;
+  .questionInfo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h2 {
+      font-weight: normal;
+    }
+  }
+
+  .filter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .buttons {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .filterOptions {
+        border: 1px solid lightgray;
+        border-radius: 5px;
+
+        button {
+          padding: 5px 10px;
+          //   border-radius: 5px;
+
+          border: none;
+        }
+
+        .active {
+          background-color: rgb(184, 184, 184);
+        }
+
+        .borders {
+          border-radius: 0;
+          border-left: 1px solid lightgray;
+          border-right: 1px solid lightgray;
+        }
+      }
+      .filterBtn {
+        padding: 5px 10px;
+        border-radius: 5px;
+        background-color: white;
+        border: 1px solid rgb(57, 115, 156);
+        background-color: rgb(225, 236, 244);
+        color: rgb(57, 115, 156);
+        margin-left: 20px;
+      }
+    }
+  }
+
+  .ask {
+    padding: 10px 5px;
+    background-color: rgb(9, 149, 254);
+    border: 1px solid rgb(57, 115, 156);
+    color: white;
+    border-radius: 3px;
+    font-size: 13px;
+    width: 120px;
+  }
+}

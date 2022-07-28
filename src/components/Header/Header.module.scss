@@ -1,49 +1,55 @@
-.header {
+.container {
+  width: 100%;
+  background-color: white;
+  border-top: 3px solid rgb(244, 130, 36);
   height: 50px;
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  line-height: 30px;
-  padding: 0 10px;
-  max-width: 1300px;
-  margin: 0 auto;
+  z-index: 10;
+  position: fixed;
+  top: 0;
 
-  .searchDiv {
-    display: flex;
-    align-items: center;
-    padding: 5px;
+  .header {
+    height: 50px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    line-height: 30px;
+    padding: 0 70px;
+    max-width: 1300px;
+    z-index: 10;
 
-    .inputGroup {
-      width: 80%;
-      position: relative;
+    width: 100%;
+    box-shadow: 0 0 4px lightgray;
 
-      label {
-        position: absolute;
-        left: 18px;
-        top: 50%;
-        transform: translate(-50%, -50%);
-      }
+    .searchDiv {
+      display: flex;
+      align-items: center;
+      padding: 5px;
 
-      label .icon {
-        color: gray;
-      }
+      .inputGroup {
+        width: 80%;
+        position: relative;
 
-      .search {
-        padding-left: 25px;
-        padding-top: 8px;
-        padding-bottom: 8px;
-        width: 95%;
-        border: 1px solid lightgray;
-        border-radius: 3px;
+        label {
+          position: absolute;
+          left: 18px;
+          top: 50%;
+          transform: translate(-50%, -50%);
+        }
+
+        label .icon {
+          color: gray;
+        }
+
+        .search {
+          padding-left: 25px;
+          padding-top: 8px;
+          padding-bottom: 8px;
+          width: 95%;
+          border: 1px solid lightgray;
+          border-radius: 3px;
+        }
       }
     }
   }
-}
-
-.container {
-  width: 100%;
-  box-shadow: 0 0 4px lightgray;
-  background-color: white;
-  border-top: 3px solid rgb(244, 130, 36);
 }
 
 .logo {
@@ -73,7 +79,7 @@
 }
 
 .login {
-  padding: 10px 5px;
+  padding: 10px 10px;
   background-color: rgb(225, 236, 244);
   border: 1px solid rgb(57, 115, 156);
   color: rgb(57, 115, 156);

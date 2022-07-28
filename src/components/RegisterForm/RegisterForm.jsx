@@ -4,7 +4,8 @@ import githubLogo from '../../assets/githublogo.png';
 import { useFormik } from 'formik';
 import { useState } from 'react';
 import * as Yup from 'yup';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const initValues = {
   username: '',
@@ -25,7 +26,7 @@ function RegisterForm() {
         username: values.name,
         password: values.password,
       };
-      const resp = await fetch('http://localhost:3001/registration', {
+      const resp = await fetch(`${baseUrl}/registration`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
