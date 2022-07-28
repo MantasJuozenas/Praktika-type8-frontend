@@ -10,11 +10,11 @@ function Header() {
         <div className={styles.logoInfo}>
           <img className={styles.logo} src={logo} alt='LOGO' />
           <NavLink to={'/home'} className={styles.navLink}>
-            Home
+            Questions
           </NavLink>
         </div>
         <div className={styles.searchDiv}>
-          <input className={`${styles.search} ${styles.mg5}`} type='text' />
+          <input className={`${styles.search} ${styles.mg5}`} type='text' placeholder='Search' />
           <NavLink to={'/login'}>
             <button className={`${styles.mg5} ${styles.login}`}>Login</button>
           </NavLink>

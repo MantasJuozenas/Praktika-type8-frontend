@@ -28,11 +28,16 @@
   text-decoration: none;
   color: black;
   font-size: 18px;
+  line-height: 50px;
+}
+
+.navLink:hover {
+  color: gray;
 }
 
 .search {
   width: 80%;
-  padding: 5px;
+  padding: 9px 5px;
   border: 1px solid lightgray;
   border-radius: 3px;
 }
@@ -48,7 +53,7 @@
 }
 
 .login {
-  padding: 6px 5px;
+  padding: 10px 5px;
   background-color: rgb(225, 236, 244);
   border: 1px solid rgb(57, 115, 156);
   color: rgb(57, 115, 156);
@@ -56,12 +61,20 @@
   font-size: 13px;
 }
 
+.login:hover {
+  background-color: rgb(170, 179, 186);
+}
+
 .signup {
-  padding: 6px 5px;
+  padding: 10px 5px;
   background-color: rgb(9, 149, 254);
   border: 1px solid rgb(57, 115, 156);
   color: white;
   border-radius: 3px;
   font-size: 13px;
   width: 90px;
+}
+
+.signup:hover {
+  background-color: rgb(7, 128, 221);
 }
