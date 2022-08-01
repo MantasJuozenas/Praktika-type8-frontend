@@ -1,0 +1,111 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 150px;
+
+  .infoDiv {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 500px;
+
+    .button {
+      width: 200px;
+      padding: 10px 15px;
+      background-color: rgb(9, 149, 254);
+      border: none;
+      border-radius: 5px;
+      color: white;
+    }
+  }
+
+  .inputs {
+    width: 290px;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 3px 3px 10px lightgray;
+    box-sizing: border-box;
+    background-color: white;
+
+    .inputContainer {
+      width: 100%;
+      margin: 10px 0;
+
+      label {
+        font-weight: 600;
+      }
+
+      input {
+        width: 98%;
+        padding: 5px;
+        margin: 5px 0;
+        display: block;
+        box-sizing: border-box;
+      }
+
+      textarea {
+        width: 98%;
+        height: 150px;
+        padding: 5px;
+        margin: 5px 0;
+        display: block;
+        box-sizing: border-box;
+        resize: none;
+      }
+
+      .errorMsg {
+        margin-top: 0;
+        color: tomato;
+        font-size: 12px;
+      }
+
+      .errorInput {
+        border: 1px solid tomato;
+        border-radius: 5px;
+        outline: none;
+        // background-color: rgb(255, 132, 111);
+      }
+
+      .passInfo {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .forgot {
+          font-size: 12px;
+          color: rgb(9, 149, 254);
+        }
+      }
+    }
+  }
+
+  button {
+    width: 100%;
+    padding: 10px 0;
+    background-color: rgb(9, 149, 254);
+    border: none;
+    border-radius: 5px;
+    color: white;
+  }
+
+  .signup {
+    color: rgb(9, 149, 254);
+    text-decoration: none;
+  }
+}
+
+.added {
+  margin: 200px auto;
+  max-width: 400px;
+  text-align: center;
+
+  .button {
+    // width: 100%;
+    padding: 10px 15px;
+    background-color: rgb(9, 149, 254);
+    border: none;
+    border-radius: 5px;
+    color: white;
+  }
+}

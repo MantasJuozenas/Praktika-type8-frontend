@@ -6,6 +6,8 @@ export const AuthContext = createContext({
   isUserLoggedIn: '',
   token: '',
   questionCount() {},
+  isDeleted: '',
+  setIsDeleted() {},
 });
 
 AuthContext.displayName = 'AuthContext';
@@ -14,6 +16,7 @@ function AuthProvider(props) {
   const [token, setToken] = useState(localStorage.getItem('token-React'));
 
   const isUserLoggedIn = !!token;
+  const [isDeleted, setIsDeleted] = useState(false);
 
   function login(userToken, userId) {
     setToken(userToken);
@@ -37,6 +40,8 @@ function AuthProvider(props) {
     isUserLoggedIn,
     token,
     questionCount,
+    isDeleted,
+    setIsDeleted,
   };
   return <AuthContext.Provider value={ctx}>{props.children}</AuthContext.Provider>;
 }

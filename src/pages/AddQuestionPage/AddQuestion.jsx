@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import style from './AddQuestion.module.scss';
 import { useFormik } from 'formik';
 import { useState } from 'react';
@@ -19,6 +19,7 @@ function AddQuestion() {
   const [created, setCreated] = useState(false);
   const { token } = useContext(AuthContext);
   const userId = localStorage.getItem('userId');
+  const history = useHistory();
 
   const formik = useFormik({
     initialValues: initValues,
@@ -50,22 +51,26 @@ function AddQuestion() {
       body: Yup.string().required('Body cannot be empty.').min(4, 'Should be at least 4 characters long'),
     }),
   });
+
+  function handleClick() {
+    history.goBack();
+  }
   return (
     <>
       {created ? (
         <div className={style.added}>
           <p>Your question was created successfully</p>{' '}
-          <Link to={'/'}>
-            <button className={style.button}>Back to Questions</button>
-          </Link>
+          <button onClick={handleClick} className={style.button}>
+            Back to Questions
+          </button>
         </div>
       ) : (
         <form onSubmit={formik.handleSubmit} className={style.form}>
           <div className={style.infoDiv}>
             <h1>Ask a question</h1>
-            <Link to={'/'}>
-              <button className={style.button}>Back to Questions</button>
-            </Link>
+            <button onClick={handleClick} className={style.button}>
+              Back to Question
+            </button>
           </div>
           <div className={style.inputs}>
             <div className={style.inputContainer}>

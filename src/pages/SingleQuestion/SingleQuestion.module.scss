@@ -54,7 +54,13 @@
 
   .rightSide {
     display: grid;
-    grid-template-columns: 3fr 0.1fr;
+    grid-template-columns: 3fr 1fr;
+
+    .edit {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
     .titleDiv {
       display: flex;
       align-items: center;
@@ -79,4 +85,19 @@
 .notLogged {
   padding-top: 20px;
   text-align: center;
+}
+
+.added {
+  margin: 200px auto;
+  max-width: 400px;
+  text-align: center;
+
+  .button {
+    // width: 100%;
+    padding: 10px 15px;
+    background-color: rgb(9, 149, 254);
+    border: none;
+    border-radius: 5px;
+    color: white;
+  }
 }

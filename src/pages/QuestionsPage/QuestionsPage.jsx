@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import QuestionList from '../../components/Questions/QuestionList';
 import { AuthContext } from '../../components/store/authContext';
 import style from './QuestionPage.module.scss';
@@ -10,7 +10,8 @@ function QuestionsPage() {
   const [filtered, setFiltered] = useState(false);
   const [answers, setAnswers] = useState([]);
   const [activeFilter, setActiveFilter] = useState(null);
-  const { questionCount, isUserLoggedIn } = useContext(AuthContext);
+  const { questionCount, isUserLoggedIn, isDeleted, setIsDeleted } = useContext(AuthContext);
+  const history = useHistory();
 
   async function getQuestions() {
     const res = await fetch(`${baseUrl}/questions`);
@@ -59,56 +60,72 @@ function QuestionsPage() {
     getAnswers();
   }, [activeFilter]);
 
+  function handleDel() {
+    setIsDeleted(false);
+    history.push('/');
+  }
+
   return (
-    <div className={style.bgc}>
-      <div className={style.questionPage}>
-        <div className={style.container}>
-          <div className={style.hero}>
-            <div className={style.questionInfo}>
-              <h2>All Questions</h2>
-              {isUserLoggedIn ? (
-                <Link to={'/askquestion'}>
-                  <button className={style.ask}>Ask a question</button>
-                </Link>
-              ) : (
-                <p>
-                  If you want to write a question please <Link to={'/login'}>log in</Link>
-                </p>
-              )}
-            </div>
-            <div className={style.filter}>
-              <p>{filtered ? filtered.length : localStorage.getItem('question-counter')} questions</p>
-              <div className={style.buttons}>
-                <div className={style.filterOptions}>
-                  <button className={style.borders} onClick={(e) => handleClick(e)}>
-                    All Questions
-                  </button>
-                  <button
-                    className={activeFilter === 'Newest' ? `${style.active}` : ''}
-                    onClick={(e) => handleClick(e)}
-                  >
-                    Newest
-                  </button>
-                  <button
-                    onClick={(e) => handleClick(e)}
-                    className={`${style.borders} ${activeFilter === 'Answered' ? `${style.active}` : ''}`}
-                  >
-                    Answered
-                  </button>
-                  <button
-                    className={activeFilter === 'Unanswered' ? `${style.active}` : ''}
-                    onClick={(e) => handleClick(e)}
-                  >
-                    Unanswered
-                  </button>
+    <>
+      {isDeleted ? (
+        <div className={style.added}>
+          <p>Your question was deleted successfully</p>
+          <button onClick={handleDel} className={style.button}>
+            Back to Questions
+          </button>
+        </div>
+      ) : (
+        <div className={style.bgc}>
+          <div className={style.questionPage}>
+            <div className={style.container}>
+              <div className={style.hero}>
+                <div className={style.questionInfo}>
+                  <h2>All Questions</h2>
+                  {isUserLoggedIn ? (
+                    <Link to={'/askquestion'}>
+                      <button className={style.ask}>Ask a question</button>
+                    </Link>
+                  ) : (
+                    <p>
+                      If you want to write a question please <Link to={'/login'}>log in</Link>
+                    </p>
+                  )}
+                </div>
+                <div className={style.filter}>
+                  <p>{filtered ? filtered.length : localStorage.getItem('question-counter')} questions</p>
+                  <div className={style.buttons}>
+                    <div className={style.filterOptions}>
+                      <button className={style.borders} onClick={(e) => handleClick(e)}>
+                        All Questions
+                      </button>
+                      <button
+                        className={activeFilter === 'Newest' ? `${style.active}` : ''}
+                        onClick={(e) => handleClick(e)}
+                      >
+                        Newest
+                      </button>
+                      <button
+                        onClick={(e) => handleClick(e)}
+                        className={`${style.borders} ${activeFilter === 'Answered' ? `${style.active}` : ''}`}
+                      >
+                        Answered
+                      </button>
+                      <button
+                        className={activeFilter === 'Unanswered' ? `${style.active}` : ''}
+                        onClick={(e) => handleClick(e)}
+                      >
+                        Unanswered
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
+              {filtered ? <QuestionList questions={filtered} /> : <QuestionList questions={questions} />}
             </div>
           </div>
-          {filtered ? <QuestionList questions={filtered} /> : <QuestionList questions={questions} />}
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 }
 

@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import SingleQuestionCard from '../../components/Questions/SingleQuestionCard';
 import { AuthContext } from '../../components/store/authContext';
 
@@ -13,8 +13,9 @@ function SingleQuestion() {
   const [hasAnswers, setHasAnswers] = useState(false);
   const [notLoggedIn, setNotLoggedIn] = useState(false);
   const { id } = useParams();
-  const { isUserLoggedIn } = useContext(AuthContext);
+  const { isUserLoggedIn, isDeleted, setIsDeleted } = useContext(AuthContext);
   const userId = localStorage.getItem('userId');
+  const history = useHistory();
 
   async function handleLikeClick(id) {
     if (isUserLoggedIn === true) {
@@ -63,6 +64,11 @@ function SingleQuestion() {
     setAnswers(result.data);
   }
 
+  function handleClick() {
+    setIsDeleted(false);
+    history.push('/');
+  }
+
   useEffect(() => {
     getAnswers(id);
     getQuestion(id);
@@ -71,7 +77,14 @@ function SingleQuestion() {
 
   return (
     <>
-      {question ? (
+      {isDeleted ? (
+        <div className={style.added}>
+          <p>Your question was deleted successfully</p>
+          <button onClick={handleClick} className={style.button}>
+            Back to Questions
+          </button>
+        </div>
+      ) : question ? (
         <div className={style.bgc}>
           <div className={style.questionPage}>
             <div className={style.container}>
@@ -124,11 +137,18 @@ function SingleQuestion() {
                     </div>
                     <div className={style.rightSide}>
                       <p className={style.text}>{answer.a_body}</p>
-                      {answer.a_user_id == userId && (
-                        <Link to={`/answers/edit/${id}`}>
-                          <i className='fa fa-pencil' aria-hidden='true'></i>
-                        </Link>
-                      )}
+                      <div className={style.edit}>
+                        {answer.a_edited ? (
+                          <span>Edited at {answer.a_edited_time_stamp}</span>
+                        ) : (
+                          <span>Created at {answer.a_time_stamp.split('T')[0]}</span>
+                        )}
+                        {answer.a_user_id == userId && (
+                          <Link to={`/answers/edit/${answer.answer_id}`}>
+                            <i className='fa fa-pencil' aria-hidden='true'></i>
+                          </Link>
+                        )}
+                      </div>
                     </div>
                   </div>
                 );

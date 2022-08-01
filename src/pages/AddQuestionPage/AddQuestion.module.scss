@@ -11,7 +11,7 @@
     width: 500px;
 
     .button {
-      width: 100%;
+      width: 200px;
       padding: 10px 15px;
       background-color: rgb(9, 149, 254);
       border: none;
@@ -51,6 +51,7 @@
         margin: 5px 0;
         display: block;
         box-sizing: border-box;
+        resize: none;
       }
 
       .errorMsg {

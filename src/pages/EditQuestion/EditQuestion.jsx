@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import style from './EditQuestion.module.scss';
 import { useFormik } from 'formik';
 import { useState } from 'react';
@@ -19,6 +19,7 @@ function EditQuestion() {
   const [created, setCreated] = useState(false);
   const { token } = useContext(AuthContext);
   const { id } = useParams();
+  const history = useHistory();
 
   async function getQuestion(id) {
     const res = await fetch(`${baseUrl}/questions/${Number(id)}`);
@@ -68,22 +69,26 @@ function EditQuestion() {
     }),
   });
 
+  function handleClick() {
+    history.goBack();
+  }
+
   return (
     <>
       {created ? (
         <div className={style.added}>
           <p>Your question was edited successfully</p>{' '}
-          <Link to={'/'}>
-            <button className={style.button}>Back to Questions</button>
-          </Link>
+          <button onClick={handleClick} className={style.button}>
+            Back to Question
+          </button>
         </div>
       ) : (
         <form onSubmit={formik.handleSubmit} className={style.form}>
           <div className={style.infoDiv}>
             <h1>Edit your question</h1>
-            <Link to={'/'}>
-              <button className={style.button}>Back to Questions</button>
-            </Link>
+            <button onClick={handleClick} className={style.button}>
+              Back to Question
+            </button>
           </div>
           <div className={style.inputs}>
             <div className={style.inputContainer}>
@@ -120,7 +125,7 @@ function EditQuestion() {
                 <p className={`${style.padding} ${style.errorMsg}`}>{error ? error : ''}</p>
               )}
             </div>
-            <button type='submit'>Post Question</button>
+            <button type='submit'>Edit Question</button>
           </div>
         </form>
       )}
