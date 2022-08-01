@@ -4,6 +4,10 @@ import { Route, Switch } from 'react-router-dom';
 import LoginPage from './pages/LoginPage/LoginPage';
 import RegisterPage from './pages/RegisterPage/RegisterPage';
 import QuestionsPage from './pages/QuestionsPage/QuestionsPage';
+import SingleQuestion from './pages/SingleQuestion/SingleQuestion';
+import AddQuestion from './pages/AddQuestionPage/AddQuestion';
+import ProtectedRoute from './components/protectedRoute';
+import EditQuestion from './pages/EditQuestion/EditQuestion';
 
 function App() {
   return (
@@ -19,12 +23,15 @@ function App() {
         <Route exact path='/'>
           <QuestionsPage />
         </Route>
-        {/* <ProtectedRoute path={'/addpost'}>
-          <AddPost />
+        <ProtectedRoute exact path={'/question/edit/:id'}>
+          <EditQuestion />
         </ProtectedRoute>
-        <ProtectedRoute exact path={'/'}>
-          <HomePage />
-        </ProtectedRoute> */}
+        <Route path='/question/:id'>
+          <SingleQuestion />
+        </Route>
+        <ProtectedRoute path={'/askquestion'}>
+          <AddQuestion />
+        </ProtectedRoute>
         <Route path='*'>
           <div className='container'>
             <h2>Page not found</h2>

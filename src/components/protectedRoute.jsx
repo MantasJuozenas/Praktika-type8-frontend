@@ -2,8 +2,9 @@ import { useContext } from 'react';
 import { Route } from 'react-router';
 
 import { Link } from 'react-router-dom';
-import { AuthContext } from '../store/AuthContext';
+
 import style from './LoginForm/LoginForm.module.scss';
+import { AuthContext } from './store/authContext';
 
 function ProtectedRoute(props) {
   const { isUserLoggedIn } = useContext(AuthContext);

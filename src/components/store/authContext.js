@@ -5,6 +5,7 @@ export const AuthContext = createContext({
   logout() {},
   isUserLoggedIn: '',
   token: '',
+  questionCount() {},
 });
 
 AuthContext.displayName = 'AuthContext';
@@ -22,6 +23,12 @@ function AuthProvider(props) {
   function logout() {
     setToken(null);
     localStorage.removeItem('token-React');
+    localStorage.removeItem('question-counter');
+    localStorage.removeItem('userId');
+  }
+
+  function questionCount(num) {
+    localStorage.setItem('question-counter', num);
   }
 
   const ctx = {
@@ -29,6 +36,7 @@ function AuthProvider(props) {
     logout,
     isUserLoggedIn,
     token,
+    questionCount,
   };
   return <AuthContext.Provider value={ctx}>{props.children}</AuthContext.Provider>;
 }

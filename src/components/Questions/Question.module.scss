@@ -1,0 +1,38 @@
+.questionCard {
+  border-bottom: 1px solid lightgray;
+  display: grid;
+  grid-template-columns: 1fr 3.5fr;
+  width: 100%;
+  max-width: 1200px;
+
+  .rightSide {
+    .titleDiv {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .title {
+        color: rgb(9, 149, 254);
+        margin-bottom: 0;
+      }
+      .edit {
+        i {
+          margin-left: 10px;
+        }
+      }
+    }
+
+    .text {
+      font-size: 13px;
+    }
+  }
+
+  .leftSide {
+    text-align: right;
+    padding-right: 10px;
+  }
+}
+
+.notLogged {
+  padding-top: 20px;
+  text-align: center;
+}

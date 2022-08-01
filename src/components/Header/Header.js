@@ -33,9 +33,9 @@ function Header() {
               </NavLink>
             </>
           ) : (
-            <NavLink to={'/'} onClick={logout}>
-              <button className={`${styles.mg5} ${styles.login}`}>Logout</button>
-            </NavLink>
+            <button onClick={logout} className={`${styles.mg5} ${styles.login}`}>
+              Logout
+            </button>
           )}
         </div>
       </header>
