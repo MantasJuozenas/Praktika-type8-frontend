@@ -53,6 +53,8 @@
   margin: 20px;
 
   .rightSide {
+    display: grid;
+    grid-template-columns: 3fr 0.1fr;
     .titleDiv {
       display: flex;
       align-items: center;

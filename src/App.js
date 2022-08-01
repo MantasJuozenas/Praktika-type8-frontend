@@ -8,12 +8,26 @@ import SingleQuestion from './pages/SingleQuestion/SingleQuestion';
 import AddQuestion from './pages/AddQuestionPage/AddQuestion';
 import ProtectedRoute from './components/protectedRoute';
 import EditQuestion from './pages/EditQuestion/EditQuestion';
+import AddAnswer from './pages/AddAnswer/AddAnswer';
+import EditAnswer from './pages/EditAnswer/EditAnswer';
 
 function App() {
   return (
     <div className='App'>
       <Header />
       <Switch>
+        <ProtectedRoute exact path={'/answers/edit/:id'}>
+          <EditAnswer />
+        </ProtectedRoute>
+        <ProtectedRoute exact path={'/question/edit/:id'}>
+          <EditQuestion />
+        </ProtectedRoute>
+        <ProtectedRoute path={'/answers/:id'}>
+          <AddAnswer />
+        </ProtectedRoute>
+        <Route path='/question/:id'>
+          <SingleQuestion />
+        </Route>
         <Route path='/login'>
           <LoginPage />
         </Route>
@@ -22,12 +36,6 @@ function App() {
         </Route>
         <Route exact path='/'>
           <QuestionsPage />
-        </Route>
-        <ProtectedRoute exact path={'/question/edit/:id'}>
-          <EditQuestion />
-        </ProtectedRoute>
-        <Route path='/question/:id'>
-          <SingleQuestion />
         </Route>
         <ProtectedRoute path={'/askquestion'}>
           <AddQuestion />

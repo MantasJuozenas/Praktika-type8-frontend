@@ -7,13 +7,14 @@ import style from './SingleQuestion.module.scss';
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
 function SingleQuestion() {
-  const [question, setQuestion] = useState([]);
+  const [question, setQuestion] = useState(false);
   const [likeDislike, setLikeDislike] = useState(false);
   const [answers, setAnswers] = useState([]);
   const [hasAnswers, setHasAnswers] = useState(false);
   const [notLoggedIn, setNotLoggedIn] = useState(false);
   const { id } = useParams();
   const { isUserLoggedIn } = useContext(AuthContext);
+  const userId = localStorage.getItem('userId');
 
   async function handleLikeClick(id) {
     if (isUserLoggedIn === true) {
@@ -78,9 +79,13 @@ function SingleQuestion() {
                 <div className={style.questionInfo}>
                   <h2>All Answers</h2>
                   {isUserLoggedIn ? (
-                    <Link to={'/askquestion'}>
-                      <button className={style.ask}>Type answer</button>
-                    </Link>
+                    question ? (
+                      <Link to={`/answers/${id}`}>
+                        <button className={style.ask}>Type answer</button>
+                      </Link>
+                    ) : (
+                      ''
+                    )
                   ) : (
                     <p>
                       If you want to write an answer please <Link to={'/login'}>log in</Link>
@@ -119,6 +124,11 @@ function SingleQuestion() {
                     </div>
                     <div className={style.rightSide}>
                       <p className={style.text}>{answer.a_body}</p>
+                      {answer.a_user_id == userId && (
+                        <Link to={`/answers/edit/${id}`}>
+                          <i className='fa fa-pencil' aria-hidden='true'></i>
+                        </Link>
+                      )}
                     </div>
                   </div>
                 );
