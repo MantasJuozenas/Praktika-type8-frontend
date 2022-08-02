@@ -103,9 +103,9 @@ function SingleQuestionCard({ data, answer, like }) {
               <p className={style.title}>{data.q_title}</p>
               <div className={style.edit}>
                 {data.q_edited ? (
-                  <span>Edited at {data.q_editet_time_stamp}</span>
+                  <span className={style.time}>Edited at {data.q_editet_time_stamp}</span>
                 ) : (
-                  <span>Created at {data.q_time_stamp.split('T')[0]}</span>
+                  <span className={style.time}>Created at {data.q_time_stamp.split('T')[0]}</span>
                 )}
                 {data.q_user_id == userId && (
                   <div>

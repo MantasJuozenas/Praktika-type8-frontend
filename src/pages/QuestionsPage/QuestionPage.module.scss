@@ -86,3 +86,16 @@
     width: 120px;
   }
 }
+
+@media screen and (max-width: 550px) {
+  .hero {
+    .questionInfo p {
+      display: none;
+    }
+    .filter {
+      .buttons {
+        display: none;
+      }
+    }
+  }
+}

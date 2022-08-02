@@ -10,18 +10,24 @@ import ProtectedRoute from './components/protectedRoute';
 import EditQuestion from './pages/EditQuestion/EditQuestion';
 import AddAnswer from './pages/AddAnswer/AddAnswer';
 import EditAnswer from './pages/EditAnswer/EditAnswer';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { AuthContext } from './components/store/authContext';
 
 function App() {
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValues, setSearchValue] = useState('');
+  const { searchValue } = useContext(AuthContext);
 
   function onChange(e = '') {
     setSearchValue(e.target.value);
   }
 
+  function resetInput() {
+    setSearchValue(searchValue);
+  }
+
   return (
     <div className='App'>
-      <Header onChange={onChange} />
+      <Header onChange={onChange} value={searchValues} onClick={resetInput} />
       <Switch>
         <ProtectedRoute exact path={'/answers/edit/:id'}>
           <EditAnswer />
@@ -42,7 +48,7 @@ function App() {
           <RegisterPage />
         </Route>
         <Route exact path='/'>
-          <QuestionsPage searchValue={searchValue} />
+          <QuestionsPage searchValue={searchValues} onClick={resetInput} />
         </Route>
         <ProtectedRoute path={'/askquestion'}>
           <AddQuestion />

@@ -144,3 +144,12 @@
     }
   }
 }
+
+@media screen and (max-width: 768px) {
+  .register {
+    max-width: 300px;
+    .infoDiv {
+      display: none;
+    }
+  }
+}

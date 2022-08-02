@@ -104,3 +104,24 @@
 .signup:hover {
   background-color: rgb(7, 128, 221);
 }
+
+@media screen and (max-width: 700px) {
+  .inputGroup {
+    input {
+      display: none;
+    }
+    label {
+      display: none;
+    }
+  }
+  .header {
+    .searchDiv {
+      margin-left: -30px;
+    }
+    .logoInfo {
+      img {
+        margin-right: 15px;
+      }
+    }
+  }
+}

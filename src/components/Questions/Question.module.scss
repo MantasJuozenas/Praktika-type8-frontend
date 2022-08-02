@@ -16,6 +16,9 @@
       }
       .edit {
         display: flex;
+        .time {
+          font-size: 10px;
+        }
         i {
           margin-left: 5px;
         }
@@ -36,4 +39,18 @@
 .notLogged {
   padding-top: 20px;
   text-align: center;
+}
+
+@media screen and (min-width: 500px) {
+  .questionCard {
+    .rightSide {
+      .titleDiv {
+        .edit {
+          .time {
+            font-size: 8px;
+          }
+        }
+      }
+    }
+  }
 }

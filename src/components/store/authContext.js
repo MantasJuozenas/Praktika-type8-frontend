@@ -8,6 +8,8 @@ export const AuthContext = createContext({
   questionCount() {},
   isDeleted: '',
   setIsDeleted() {},
+  searchValue: '',
+  setSearchValue() {},
 });
 
 AuthContext.displayName = 'AuthContext';
@@ -17,6 +19,7 @@ function AuthProvider(props) {
 
   const isUserLoggedIn = !!token;
   const [isDeleted, setIsDeleted] = useState(false);
+  const [searchValue, setSearchValue] = useState('');
 
   function login(userToken, userId) {
     setToken(userToken);
@@ -42,6 +45,8 @@ function AuthProvider(props) {
     questionCount,
     isDeleted,
     setIsDeleted,
+    searchValue,
+    setSearchValue,
   };
   return <AuthContext.Provider value={ctx}>{props.children}</AuthContext.Provider>;
 }

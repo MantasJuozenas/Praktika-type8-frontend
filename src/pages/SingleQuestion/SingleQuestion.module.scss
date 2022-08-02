@@ -101,3 +101,11 @@
     color: white;
   }
 }
+
+@media screen and (max-width: 500px) {
+  .hero {
+    .questionInfo p {
+      display: none;
+    }
+  }
+}

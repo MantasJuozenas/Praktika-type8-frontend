@@ -48,14 +48,12 @@ function SingleQuestion() {
   }
 
   async function getQuestion(id) {
-    console.log('getQuestion ran');
     const res = await fetch(`${baseUrl}/questions/${id}`);
     const { data } = await res.json();
     setQuestion(data);
   }
 
   async function getAnswers(id) {
-    console.log('get answers ran');
     const res = await fetch(`${baseUrl}/questions/${id}/answers`);
     const result = await res.json();
     if (result.data.length === 0) {

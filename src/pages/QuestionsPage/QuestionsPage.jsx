@@ -5,7 +5,7 @@ import { AuthContext } from '../../components/store/authContext';
 import style from './QuestionPage.module.scss';
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
-function QuestionsPage({ searchValue }) {
+function QuestionsPage({ searchValue, onClick }) {
   const [questions, setQuestions] = useState([]);
   const [filtered, setFiltered] = useState(false);
   const [answers, setAnswers] = useState([]);
@@ -20,7 +20,16 @@ function QuestionsPage({ searchValue }) {
     questionCount(data.length);
   }
 
-  console.log(searchValue);
+  function search(searchValue) {
+    if (searchValue) {
+      const newData = [...questions];
+      const filtered = newData.filter((t) => t.q_title.includes(searchValue));
+      setFiltered(filtered);
+      setActiveFilter(false);
+      return;
+    }
+    setFiltered(questions);
+  }
 
   async function getAnswers() {
     const res = await fetch(`${baseUrl}/answers`);
@@ -31,6 +40,7 @@ function QuestionsPage({ searchValue }) {
   }
 
   function handleClick(e) {
+    onClick();
     let newData = [...questions];
     switch (e.target.textContent) {
       case 'Newest':
@@ -58,9 +68,15 @@ function QuestionsPage({ searchValue }) {
     }
   }
   useEffect(() => {
+    if (searchValue) {
+      search(searchValue);
+      return;
+    } else {
+      setFiltered(false);
+    }
     getQuestions();
     getAnswers();
-  }, [activeFilter]);
+  }, [searchValue]);
 
   function handleDel() {
     setIsDeleted(false);
@@ -77,55 +93,63 @@ function QuestionsPage({ searchValue }) {
           </button>
         </div>
       ) : (
-        <div className={style.bgc}>
-          <div className={style.questionPage}>
-            <div className={style.container}>
-              <div className={style.hero}>
-                <div className={style.questionInfo}>
-                  <h2>All Questions</h2>
-                  {isUserLoggedIn ? (
-                    <Link to={'/askquestion'}>
-                      <button className={style.ask}>Ask a question</button>
-                    </Link>
-                  ) : (
-                    <p>
-                      If you want to write a question please <Link to={'/login'}>log in</Link>
-                    </p>
-                  )}
-                </div>
-                <div className={style.filter}>
-                  <p>{filtered ? filtered.length : localStorage.getItem('question-counter')} questions</p>
-                  <div className={style.buttons}>
-                    <div className={style.filterOptions}>
-                      <button className={style.borders} onClick={(e) => handleClick(e)}>
-                        All Questions
-                      </button>
-                      <button
-                        className={activeFilter === 'Newest' ? `${style.active}` : ''}
-                        onClick={(e) => handleClick(e)}
-                      >
-                        Newest
-                      </button>
-                      <button
-                        onClick={(e) => handleClick(e)}
-                        className={`${style.borders} ${activeFilter === 'Answered' ? `${style.active}` : ''}`}
-                      >
-                        Answered
-                      </button>
-                      <button
-                        className={activeFilter === 'Unanswered' ? `${style.active}` : ''}
-                        onClick={(e) => handleClick(e)}
-                      >
-                        Unanswered
-                      </button>
+        questions.length !== 0 && (
+          <div className={style.bgc}>
+            <div className={style.questionPage}>
+              <div className={style.container}>
+                <div className={style.hero}>
+                  <div className={style.questionInfo}>
+                    <h2>All Questions</h2>
+                    {isUserLoggedIn ? (
+                      <Link to={'/askquestion'}>
+                        <button onClick={onClick} className={style.ask}>
+                          Ask a question
+                        </button>
+                      </Link>
+                    ) : (
+                      <p>
+                        If you want to write a question please <Link to={'/login'}>log in</Link>
+                      </p>
+                    )}
+                  </div>
+                  <div className={style.filter}>
+                    <p>{filtered ? filtered.length : localStorage.getItem('question-counter')} questions</p>
+                    <div className={style.buttons}>
+                      <div className={style.filterOptions}>
+                        <button className={style.borders} onClick={(e) => handleClick(e)}>
+                          All Questions
+                        </button>
+                        <button
+                          className={activeFilter === 'Newest' ? `${style.active}` : ''}
+                          onClick={(e) => handleClick(e)}
+                        >
+                          Newest
+                        </button>
+                        <button
+                          onClick={(e) => handleClick(e)}
+                          className={`${style.borders} ${activeFilter === 'Answered' ? `${style.active}` : ''}`}
+                        >
+                          Answered
+                        </button>
+                        <button
+                          className={activeFilter === 'Unanswered' ? `${style.active}` : ''}
+                          onClick={(e) => handleClick(e)}
+                        >
+                          Unanswered
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
+                {filtered ? (
+                  <QuestionList onClick={onClick} questions={filtered} />
+                ) : (
+                  <QuestionList questions={questions} onClick={onClick} />
+                )}
               </div>
-              {filtered ? <QuestionList questions={filtered} /> : <QuestionList questions={questions} />}
             </div>
           </div>
-        </div>
+        )
       )}
     </>
   );

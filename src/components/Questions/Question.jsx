@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import style from './Question.module.scss';
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
-function Question({ data }) {
+function Question({ data, onClick }) {
   const [answers, setAnswers] = useState([]);
 
   const history = useHistory();
@@ -36,11 +36,13 @@ function Question({ data }) {
           </div>
           <div className={style.rightSide}>
             <div className={style.titleDiv}>
-              <p className={style.title}>{data.q_title}</p>
+              <p onClick={onClick} className={style.title}>
+                {data.q_title}
+              </p>
               {data.q_edited ? (
-                <span>Edited at {data.q_editet_time_stamp}</span>
+                <span className={style.time}>Edited at {data.q_editet_time_stamp}</span>
               ) : (
-                <span>Created at {data.q_time_stamp.split('T')[0]}</span>
+                <span className={style.time}>Created at {data.q_time_stamp.split('T')[0]}</span>
               )}
             </div>
             <p className={style.text}>{data.q_body.length > 160 ? data.q_body.slice(0, 160) + '...' : data.q_body}</p>
