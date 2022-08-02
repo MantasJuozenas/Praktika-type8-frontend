@@ -42,7 +42,6 @@ function AddAnswer() {
         body: JSON.stringify(newAnswer),
       });
       const result = await resp.json();
-      console.log(result);
       if (result.success) {
         setCreated(true);
       }

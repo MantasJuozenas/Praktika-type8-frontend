@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import SingleQuestionCard from '../../components/Questions/SingleQuestionCard';
 import { AuthContext } from '../../components/store/authContext';
+import AnswerList from '../../components/Answers/AnswerList';
 
 import style from './SingleQuestion.module.scss';
 const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -13,8 +14,7 @@ function SingleQuestion() {
   const [hasAnswers, setHasAnswers] = useState(false);
   const [notLoggedIn, setNotLoggedIn] = useState(false);
   const { id } = useParams();
-  const { isUserLoggedIn, isDeleted, setIsDeleted } = useContext(AuthContext);
-  const userId = localStorage.getItem('userId');
+  const { isUserLoggedIn, isDeleted, setIsDeleted, token } = useContext(AuthContext);
   const history = useHistory();
 
   async function handleLikeClick(id) {
@@ -48,25 +48,40 @@ function SingleQuestion() {
   }
 
   async function getQuestion(id) {
+    console.log('getQuestion ran');
     const res = await fetch(`${baseUrl}/questions/${id}`);
     const { data } = await res.json();
     setQuestion(data);
   }
 
   async function getAnswers(id) {
+    console.log('get answers ran');
     const res = await fetch(`${baseUrl}/questions/${id}/answers`);
     const result = await res.json();
     if (result.data.length === 0) {
       setHasAnswers(false);
+      setAnswers(result.data);
       return;
     }
-    setHasAnswers(true);
     setAnswers(result.data);
+    setHasAnswers(true);
   }
 
   function handleClick() {
     setIsDeleted(false);
     history.push('/');
+  }
+
+  async function handleDelete(id) {
+    const res = await fetch(`${baseUrl}/answer/${id}`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+    });
+    const result = await res.json();
+    if (result.success) {
+      setLikeDislike(true);
+      return;
+    }
   }
 
   useEffect(() => {
@@ -84,80 +99,46 @@ function SingleQuestion() {
             Back to Questions
           </button>
         </div>
-      ) : question ? (
-        <div className={style.bgc}>
-          <div className={style.questionPage}>
-            <div className={style.container}>
-              <div className={style.hero}>
-                <div className={style.questionInfo}>
-                  <h2>All Answers</h2>
-                  {isUserLoggedIn ? (
-                    question ? (
+      ) : (
+        question && (
+          <div className={style.bgc}>
+            <div className={style.questionPage}>
+              <div className={style.container}>
+                <div className={style.hero}>
+                  <div className={style.questionInfo}>
+                    <h2>All Answers</h2>
+                    {isUserLoggedIn ? (
                       <Link to={`/answers/${id}`}>
                         <button className={style.ask}>Type answer</button>
                       </Link>
                     ) : (
-                      ''
-                    )
-                  ) : (
-                    <p>
-                      If you want to write an answer please <Link to={'/login'}>log in</Link>
-                    </p>
-                  )}
-                </div>
-              </div>
-              {question ? <SingleQuestionCard like={setLikeDislike} data={question[0]} answer={answers.length} /> : ''}
-            </div>
-            <div className={style.answer}>{hasAnswers ? <h2>Answers</h2> : <h2>No Answers</h2>}</div>
-            {notLoggedIn ? (
-              <div className={style.notLogged}>
-                If you want to like or dislike an answer please <Link to={'/login'}>Log in</Link>
-              </div>
-            ) : (
-              answers.map((answer, i) => {
-                return (
-                  <div key={i} className={style.answerCard}>
-                    <div className={style.leftSide}>
                       <p>
-                        <i
-                          onClick={() => handleLikeClick(answer.answer_id)}
-                          className='fa fa-arrow-up'
-                          aria-hidden='true'
-                        ></i>
-                        {answer.a_like}
+                        If you want to write an answer please <Link to={'/login'}>log in</Link>
                       </p>
-                      <p>
-                        <i
-                          onClick={() => handleDislikeClick(answer.answer_id)}
-                          className='fa fa-arrow-down'
-                          aria-hidden='true'
-                        ></i>
-                        {answer.a_dislike}
-                      </p>
-                    </div>
-                    <div className={style.rightSide}>
-                      <p className={style.text}>{answer.a_body}</p>
-                      <div className={style.edit}>
-                        {answer.a_edited ? (
-                          <span>Edited at {answer.a_edited_time_stamp}</span>
-                        ) : (
-                          <span>Created at {answer.a_time_stamp.split('T')[0]}</span>
-                        )}
-                        {answer.a_user_id == userId && (
-                          <Link to={`/answers/edit/${answer.answer_id}`}>
-                            <i className='fa fa-pencil' aria-hidden='true'></i>
-                          </Link>
-                        )}
-                      </div>
-                    </div>
+                    )}
                   </div>
-                );
-              })
-            )}
+                </div>
+                <SingleQuestionCard like={setLikeDislike} data={question[0]} answer={answers.length} />
+              </div>
+              <div className={style.answer}>{hasAnswers ? <h2>Answers</h2> : <h2>No Answers</h2>}</div>
+              {notLoggedIn ? (
+                <div className={style.notLogged}>
+                  If you want to like or dislike an answer please <Link to={'/login'}>Log in</Link>
+                </div>
+              ) : (
+                hasAnswers && (
+                  <AnswerList
+                    data={answers}
+                    handleLike={handleLikeClick}
+                    handleDislike={handleDislikeClick}
+                    handleDelete={handleDelete}
+                    hasAnswers={hasAnswers}
+                  />
+                )
+              )}
+            </div>
           </div>
-        </div>
-      ) : (
-        <h2>Loading...</h2>
+        )
       )}
     </>
   );

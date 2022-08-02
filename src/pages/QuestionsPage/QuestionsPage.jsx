@@ -5,7 +5,7 @@ import { AuthContext } from '../../components/store/authContext';
 import style from './QuestionPage.module.scss';
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
-function QuestionsPage() {
+function QuestionsPage({ searchValue }) {
   const [questions, setQuestions] = useState([]);
   const [filtered, setFiltered] = useState(false);
   const [answers, setAnswers] = useState([]);
@@ -19,6 +19,8 @@ function QuestionsPage() {
     setQuestions(data);
     questionCount(data.length);
   }
+
+  console.log(searchValue);
 
   async function getAnswers() {
     const res = await fetch(`${baseUrl}/answers`);

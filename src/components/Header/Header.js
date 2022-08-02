@@ -4,7 +4,7 @@ import logo from '../../assets/stack.png';
 import { AuthContext } from '../store/authContext';
 import styles from './Header.module.scss';
 
-function Header() {
+function Header({ onChange }) {
   const { isUserLoggedIn, logout } = useContext(AuthContext);
 
   return (
@@ -21,7 +21,13 @@ function Header() {
             <label htmlFor='search' className={styles.id}>
               <i className={`${styles.icon} fa fa-search`}></i>
             </label>
-            <input className={`${styles.search} ${styles.mg5}`} name='search' type='text' placeholder='Search' />
+            <input
+              className={`${styles.search} ${styles.mg5}`}
+              onChange={onChange}
+              name='search'
+              type='text'
+              placeholder='Search'
+            />
           </div>
           {!isUserLoggedIn ? (
             <>

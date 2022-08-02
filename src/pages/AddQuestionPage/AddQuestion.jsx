@@ -38,6 +38,7 @@ function AddQuestion() {
         body: JSON.stringify(newQuestion),
       });
       const result = await resp.json();
+
       if (result.success) {
         setCreated(true);
       }

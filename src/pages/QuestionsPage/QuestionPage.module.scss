@@ -24,6 +24,10 @@
     align-items: center;
     justify-content: space-between;
 
+    .underline {
+      text-decoration-line: none;
+    }
+
     h2 {
       font-weight: normal;
     }

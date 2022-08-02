@@ -10,11 +10,18 @@ import ProtectedRoute from './components/protectedRoute';
 import EditQuestion from './pages/EditQuestion/EditQuestion';
 import AddAnswer from './pages/AddAnswer/AddAnswer';
 import EditAnswer from './pages/EditAnswer/EditAnswer';
+import { useState } from 'react';
 
 function App() {
+  const [searchValue, setSearchValue] = useState('');
+
+  function onChange(e = '') {
+    setSearchValue(e.target.value);
+  }
+
   return (
     <div className='App'>
-      <Header />
+      <Header onChange={onChange} />
       <Switch>
         <ProtectedRoute exact path={'/answers/edit/:id'}>
           <EditAnswer />
@@ -35,7 +42,7 @@ function App() {
           <RegisterPage />
         </Route>
         <Route exact path='/'>
-          <QuestionsPage />
+          <QuestionsPage searchValue={searchValue} />
         </Route>
         <ProtectedRoute path={'/askquestion'}>
           <AddQuestion />

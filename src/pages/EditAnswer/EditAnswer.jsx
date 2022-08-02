@@ -23,11 +23,12 @@ function EditAnswer() {
   const history = useHistory();
 
   async function getQuestion(id) {
-    const res = await fetch(`${baseUrl}/questions/${Number(id)}`);
+    const res = await fetch(`${baseUrl}/answer/${id}`);
     const result = await res.json();
+    console.log(result);
     if (result.success) {
       const values = {
-        body: result.data[0].q_body,
+        body: result.data[0].a_body,
       };
       formik.setValues(values);
     }
