@@ -14,10 +14,13 @@
         color: rgb(9, 149, 254);
         margin-bottom: 0;
       }
+      .time {
+        font-size: 12px;
+      }
       .edit {
         display: flex;
         .time {
-          font-size: 10px;
+          font-size: 12px;
         }
         i {
           margin-left: 5px;
@@ -47,7 +50,7 @@
       .titleDiv {
         .edit {
           .time {
-            font-size: 8px;
+            font-size: 10px;
           }
         }
       }
